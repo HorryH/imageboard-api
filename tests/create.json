@@ -1,0 +1,8 @@
+{
+  "body": "{\"content\":\"hello world\"}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "hello-user-123"
+    }
+  }
+}
