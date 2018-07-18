@@ -1,4 +1,3 @@
-# NOTE: update this with your service name
 service: imageboard-api
 
 # Use the serverless-webpack plugin to transpile ES6
@@ -50,5 +49,14 @@ functions:
       - http:
           path: imageboard
           method: post
+          cors: true
+          authorizer: aws_iam
+
+  get:
+    handler: get.main
+    events:
+      - http:
+          path: imageboard
+          method: get
           cors: true
           authorizer: aws_iam
