@@ -6,6 +6,11 @@ export function failure(body) {
   return buildResponse(500, body);
 }
 
+export function successOrNull(body) {
+  if (body !== null)
+    return success(body)
+}
+
 function buildResponse(statusCode, body) {
   return {
     statusCode: statusCode,

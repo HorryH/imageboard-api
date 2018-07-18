@@ -9,15 +9,23 @@ export function call(action, params) {
   return dynamoDb[action](params).promise();
 }
 
-export async function handledGet(params, context, callback) {
+export async function genericHandledDBCall(operation, params, context, callback) {
   try {
-    const result = await call("get", params);
+    const result = await call(operation, params);
     if (result.Item) {
       return result.Item;
-    } else {
-      return null;
     }
   } catch (e) {
+    console.log(e);
     callback(null, failure({ status: false }));
   }
+  return null;
+}
+
+export function handledGet(params, context, callback) {
+  return genericHandledDBCall("get", params, context, callback);
+}
+
+export function handledPut(params, context, callback) {
+  return genericHandledDBCall("put", params, context, callback);
 }
