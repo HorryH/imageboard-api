@@ -29,3 +29,7 @@ export function handledGet(params, context, callback) {
 export function handledPut(params, context, callback) {
   return genericHandledDBCall("put", params, context, callback);
 }
+
+export function handledUpdate(params, context, callback) {
+  return genericHandledDBCall("update", params, context, callback);
+}
