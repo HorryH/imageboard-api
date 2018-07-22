@@ -1,6 +1,7 @@
 import * as dynamoDbLib from "./dynamodb";
 
-const imageboard = "imageboard-main"
+const imageboard = "imageboard-main";
+const ibRank = "imageboard-rank";
 
 export function getMain(pid, context, callback) {
   const params = {
@@ -30,4 +31,12 @@ export function updateMain(pid, updateExpression, updateValues, context, callbac
     ExpressionAttributeValues: updateValues
   };
   return dynamoDbLib.handledUpdate(params, context, callback)
+}
+
+export function createRank(item, context, callback) {
+  const params = {
+    TableName: ibRank,
+    Item: item
+  };
+  return dynamoDbLib.handledPut(params, context, callback);
 }
