@@ -40,3 +40,16 @@ export function createRank(item, context, callback) {
   };
   return dynamoDbLib.handledPut(params, context, callback);
 }
+
+export function getRanks(exclusiveStartKey, context, callback) {
+  const params = {
+    TableName: ibRank,
+    AttributesToGet: [
+      "pid"
+    ],
+    Limit: 1000
+  };
+  if (exclusiveStartKey)
+    params.ExclusiveStartKey = exclusiveStartKey;
+  return dynamoDbLib.handledScan(params, context, callback)
+}

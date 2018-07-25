@@ -12,9 +12,12 @@ export function call(action, params) {
 export async function genericHandledDBCall(operation, params, context, callback) {
   try {
     const result = await call(operation, params);
+    console.log("Results of the " + operation + " operation:");
+    console.log(result);
     if (result.Item) {
       return result.Item;
     }
+    return result;
   } catch (e) {
     console.log(e);
     callback(null, failure({ status: false }));
@@ -32,4 +35,8 @@ export function handledPut(params, context, callback) {
 
 export function handledUpdate(params, context, callback) {
   return genericHandledDBCall("update", params, context, callback);
+}
+
+export function handledScan(params, context, callback) {
+  return genericHandledDBCall("scan", params, context, callback);
 }

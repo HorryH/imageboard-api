@@ -7,7 +7,7 @@ export function failure(body) {
 }
 
 export function successOrNull(body) {
-  if (body !== null)
+  if (body)
     return success(body)
 }
 

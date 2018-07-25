@@ -60,3 +60,12 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+
+  rankPosts:
+    handler: rank-posts.main
+    events:
+      - http:
+          path: imageboard
+          method: post
+          cors: true
+          authorizer: aws_iam
