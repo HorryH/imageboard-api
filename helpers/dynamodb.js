@@ -25,18 +25,18 @@ export async function genericHandledDBCall(operation, params, context, callback)
   return null;
 }
 
-export function handledGet(params, context, callback) {
-  return genericHandledDBCall("get", params, context, callback);
+export function handledGet(...args) {
+  return genericHandledDBCall("get", ...args);
 }
 
-export function handledPut(params, context, callback) {
-  return genericHandledDBCall("put", params, context, callback);
+export function handledPut(...args) {
+  return genericHandledDBCall("put", ...args);
 }
 
-export function handledUpdate(params, context, callback) {
-  return genericHandledDBCall("update", params, context, callback);
+export function handledUpdate(...args) {
+  return genericHandledDBCall("update", ...args);
 }
 
-export function handledScan(params, context, callback) {
-  return genericHandledDBCall("scan", params, context, callback);
+export function handledScan(...args) {
+  return genericHandledDBCall("scan", ...args);
 }
