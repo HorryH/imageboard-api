@@ -1,6 +1,6 @@
 import * as imageboardDB from "./helpers/imageboarddb";
 import { successOrNull } from "./helpers/response";
-import hot from "./helpers/rank";
+import hot from "./helpers/ranker";
 
 export async function main(event, context, callback) {
   let results = await imageboardDB.getRanks(null, context, callback);

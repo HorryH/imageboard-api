@@ -1,6 +1,6 @@
 import uuid from "uuid";
 import * as imageboardDB from "./helpers/imageboarddb";
-import hot from "./helpers/rank";
+import hot from "./helpers/ranker";
 import { successOrNull, failure } from "./helpers/response";
 
 export async function main(event, context, callback) {
