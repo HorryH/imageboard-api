@@ -2,6 +2,7 @@ import * as dynamoDbLib from "./dynamodb";
 
 const imageboard = "imageboard-main";
 const imageboardRank = "imageboard-rank";
+const imageboardVotes = "imageboard-votes";
 
 export function getMain(pid, ...args) {
   const params = {
@@ -64,4 +65,24 @@ export function updateRank(pid, updateExpression, updateValues, ...args) {
     ExpressionAttributeValues: updateValues
   };
   return dynamoDbLib.handledUpdate(params, ...args);
+}
+
+export function getVote(uid, pid, ...args) {
+  const params = {
+    TableName: imageboardVotes,
+    Key: {
+      uid: uid,
+      pid: pid
+    },
+    ProjectionExpression: "vote"
+  };
+  return dynamoDbLib.handledGet(params, ...args);
+}
+
+export function createVote(item, ...args) {
+  const params = {
+    TableName: imageboardVotes,
+    Item: item
+  };
+  return dynamoDbLib.handledPut(params, ...args);
 }

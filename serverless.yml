@@ -69,3 +69,12 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+
+  vote:
+    handler: vote.main
+    events:
+      - http:
+          path: imageboard
+          method: post
+          cors: true
+          authorizer: aws_iam
