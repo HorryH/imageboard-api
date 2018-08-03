@@ -7,22 +7,30 @@ export async function main(event, context, callback) {
   const pid = event.pathParameters.pid;
   const vote = data.vote;
   const results = await imageboardDB.getVote(uid, pid, context, callback);
+  const post = await imageboardDB.getMain(pid);
 
   const params = {
     uid: uid,
     pid: pid,
     vote: vote
   };
+  const updateExpression = "set points = :points";
+  const updateValues = {":points": post.points};
 
   if (Object.keys(results).length !== 0) {
     if (results.vote === vote) {
       params.vote = null;
+      updateValues[":points"] = post.points + (vote ? -1 : 1);
     } else {
-      params.vote = !vote;
+      params.vote = vote;
+      updateValues[":points"] = post.points + (vote ? 2 : -2);
     }
-  } else {
-    params.vote = vote;
   }
+  if (!results.vote) {
+    params.vote = vote;
+    updateValues[":points"] = post.points + (vote ? 1 : -1);
+  }
+  await imageboardDB.updateMain(pid, updateExpression, updateValues, context, callback);
   await imageboardDB.createVote(params, context, callback);
 
   callback(null, successOrNull(results));
