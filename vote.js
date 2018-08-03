@@ -8,14 +8,22 @@ export async function main(event, context, callback) {
   const vote = data.vote;
   const results = await imageboardDB.getVote(uid, pid, context, callback);
 
-  // Ugly ass check brought to you by stack overflow
-  if (Object.keys(results).length === 0) {
-    const params = {
-      uid: uid,
-      pid: pid,
-      vote: vote
-    };
-    await imageboardDB.createVote(params, context, callback);
+  const params = {
+    uid: uid,
+    pid: pid,
+    vote: vote
+  };
+
+  if (Object.keys(results).length !== 0) {
+    if (results.vote === vote) {
+      params.vote = null;
+    } else {
+      params.vote = !vote;
+    }
+  } else {
+    params.vote = vote;
   }
+  await imageboardDB.createVote(params, context, callback);
+
   callback(null, successOrNull(results));
 }
