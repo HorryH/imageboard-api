@@ -3,6 +3,7 @@ import * as dynamoDbLib from "./dynamodb";
 const imageboard = "imageboard-main";
 const imageboardRank = "imageboard-rank";
 const imageboardVotes = "imageboard-votes";
+const scoreIndex = "score-index";
 
 export function getMain(pid, ...args) {
   const params = {
@@ -32,6 +33,23 @@ export function updateMain(pid, updateExpression, updateValues, ...args) {
     ExpressionAttributeValues: updateValues
   };
   return dynamoDbLib.handledUpdate(params, ...args);
+}
+
+export function listByScore(number, exclusiveStartKey, ...args) {
+  const params = {
+    TableName: imageboardRank,
+    IndexName: scoreIndex,
+    KeyConditionExpression: "score >= :dummy",
+    ExpressionAttributeValues: {
+      ":dummy": {"S": 0}
+    },
+    ProjectionExpression: "pid",
+    Limit: number,
+    ScanIndexForward: false
+  };
+  if (exclusiveStartKey)
+    params.ExclusiveStartKey = exclusiveStartKey;
+  return dynamoDbLib.handledQuery(params, ...args);
 }
 
 export function createRank(item, ...args) {

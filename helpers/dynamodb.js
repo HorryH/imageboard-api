@@ -37,6 +37,10 @@ export function handledUpdate(...args) {
   return genericHandledDBCall("update", ...args);
 }
 
+export function handledQuery(...args) {
+  return genericHandledDBCall("query", ...args);
+}
+
 export function handledScan(...args) {
   return genericHandledDBCall("scan", ...args);
 }
