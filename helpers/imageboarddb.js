@@ -3,7 +3,7 @@ import * as dynamoDbLib from "./dynamodb";
 const imageboard = "imageboard-main";
 const imageboardRank = "imageboard-rank";
 const imageboardVotes = "imageboard-votes";
-const scoreIndex = "score-index";
+const scoreIndex = "dummy-score-index";
 
 export function getMain(pid, ...args) {
   const params = {
@@ -39,9 +39,9 @@ export function listByScore(number, exclusiveStartKey, ...args) {
   const params = {
     TableName: imageboardRank,
     IndexName: scoreIndex,
-    KeyConditionExpression: "score >= :dummy",
+    KeyConditionExpression: "dummy = :dummy",
     ExpressionAttributeValues: {
-      ":dummy": {"S": 0}
+      ":dummy": 0
     },
     ProjectionExpression: "pid",
     Limit: number,

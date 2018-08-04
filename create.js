@@ -36,7 +36,8 @@ export async function main(event, context, callback) {
   } else {
     const rankParams = {
       pid: newPid,
-      score: hot(newScore, currentDate)
+      score: hot(newScore, currentDate),
+      dummy: 0
     };
     await imageboardDB.createRank(rankParams, context, callback);
   }
