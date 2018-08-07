@@ -35,6 +35,17 @@ export function updateMain(pid, updateExpression, updateValues, ...args) {
   return dynamoDbLib.handledUpdate(params, ...args);
 }
 
+export function batchGetMain(keys, ...args) {
+  const params = {
+    RequestItems: {}
+  };
+  params.RequestItems[imageboard] = {
+    Keys: keys
+  };
+  console.log(params)
+  return dynamoDbLib.handledBatchGet(params, ...args);
+}
+
 export function listByScore(number, exclusiveStartKey, ...args) {
   const params = {
     TableName: imageboardRank,

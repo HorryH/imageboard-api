@@ -44,3 +44,7 @@ export function handledQuery(...args) {
 export function handledScan(...args) {
   return genericHandledDBCall("scan", ...args);
 }
+
+export function handledBatchGet(...args) {
+  return genericHandledDBCall("batchGet", ...args);
+}
