@@ -42,7 +42,6 @@ export function batchGetMain(keys, ...args) {
   params.RequestItems[imageboard] = {
     Keys: keys
   };
-  console.log(params)
   return dynamoDbLib.handledBatchGet(params, ...args);
 }
 

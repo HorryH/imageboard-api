@@ -6,5 +6,7 @@ export async function main(event, context, callback) {
   const results = await imageboardDB.listByScore(50, data.startKey, callback);
   const postList = await imageboardDB.batchGetMain(results.Items, context, callback);
   postList.list = results.Items;
+  if (results.LastEvaluatedKey)
+    postList.LastEvaluatedKey = results.LastEvaluatedKey;
   callback(null, successOrNull(postList));
 }
