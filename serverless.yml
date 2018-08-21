@@ -36,18 +36,11 @@ provider:
       Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hello
-          method: get
-
   create:
     handler: create.main
     events:
       - http:
-          path: imageboard
+          path: post
           method: post
           cors: true
           authorizer: aws_iam
@@ -56,7 +49,7 @@ functions:
     handler: get.main
     events:
       - http:
-          path: imageboard
+          path: post
           method: get
           cors: true
           authorizer: aws_iam
@@ -65,7 +58,7 @@ functions:
     handler: rank.main
     events:
       - http:
-          path: imageboard
+          path: list
           method: post
           cors: true
           authorizer: aws_iam
@@ -74,7 +67,7 @@ functions:
     handler: vote.main
     events:
       - http:
-          path: imageboard
+          path: vote
           method: post
           cors: true
           authorizer: aws_iam
@@ -83,7 +76,7 @@ functions:
     handler: list.main
     events:
       - http:
-          path: imageboard
-          method: post
+          path: list
+          method: get
           cors: true
           authorizer: aws_iam

@@ -8,7 +8,9 @@ export function failure(body) {
 
 export function successOrNull(body) {
   if (body)
-    return success(body)
+    return success(body);
+  else
+    return failure(null);
 }
 
 function buildResponse(statusCode, body) {
