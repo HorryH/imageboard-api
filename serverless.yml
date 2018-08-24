@@ -68,7 +68,7 @@ functions:
     handler: vote.main
     events:
       - http:
-          path: vote
+          path: vote/{pid}
           method: post
           cors: true
           authorizer: aws_iam

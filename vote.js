@@ -33,5 +33,5 @@ export async function main(event, context, callback) {
   await imageboardDB.updateMain(pid, updateExpression, updateValues, context, callback);
   await imageboardDB.createVote(params, context, callback);
 
-  callback(null, successOrNull(results));
+  callback(null, successOrNull({newPoints: updateValues[":points"]}));
 }
