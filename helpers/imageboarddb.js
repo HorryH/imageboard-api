@@ -114,3 +114,27 @@ export function createVote(item, ...args) {
   };
   return dynamoDbLib.handledPut(params, ...args);
 }
+
+export function updateVote(uid, pid, updateExpression, updateValues, ...args) {
+  const params = {
+    TableName: imageboardVotes,
+    Key: {
+      uid: uid,
+      pid: pid
+    },
+    UpdateExpression: updateExpression,
+    ExpressionAttributeValues: updateValues
+  };
+  return dynamoDbLib.handledUpdate(params, ...args);
+}
+
+export function deleteVote(uid, pid, ...args) {
+  const params = {
+    TableName: imageboardVotes,
+    Key: {
+      uid: uid,
+      pid: pid
+    }
+  };
+  return dynamoDbLib.handledDelete(params, ...args)
+}

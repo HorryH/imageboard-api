@@ -33,6 +33,10 @@ export function handledPut(...args) {
   return genericHandledDBCall("put", ...args);
 }
 
+export function handledDelete(...args) {
+  return genericHandledDBCall("delete", ...args)
+}
+
 export function handledUpdate(...args) {
   return genericHandledDBCall("update", ...args);
 }

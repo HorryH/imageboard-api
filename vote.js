@@ -25,13 +25,15 @@ export async function main(event, context, callback) {
       params.vote = vote;
       updateValues[":points"] = post.points + (vote ? 2 : -2);
     }
-  }
-  if (!results.vote) {
+  } else if (!results.vote) {
     params.vote = vote;
     updateValues[":points"] = post.points + (vote ? 1 : -1);
   }
   await imageboardDB.updateMain(pid, updateExpression, updateValues, context, callback);
-  await imageboardDB.createVote(params, context, callback);
+  if (params.vote === null)
+    await imageboardDB.deleteVote(params.uid, params.pid, context, callback);
+  else
+    await imageboardDB.createVote(params, context, callback);
 
   callback(null, successOrNull({newPoints: updateValues[":points"]}));
 }

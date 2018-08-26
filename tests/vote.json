@@ -1,5 +1,5 @@
 {
-  "body": "{\"vote\":true}",
+  "body": "{\"vote\":false}",
   "pathParameters": {
     "pid": "8c5db940-8bc9-11e8-8a51-595907c01c15"
   },
