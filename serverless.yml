@@ -52,8 +52,6 @@ functions:
       - http:
           path: post
           method: get
-          cors: true
-          authorizer: aws_iam
 
   rank:
     handler: rank.main
@@ -79,5 +77,3 @@ functions:
       - http:
           path: list
           method: get
-          cors: true
-          authorizer: aws_iam
