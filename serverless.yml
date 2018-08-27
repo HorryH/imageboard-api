@@ -77,3 +77,10 @@ functions:
       - http:
           path: list
           method: get
+
+  fetch:
+    handler: fetch.main
+    events:
+    - http:
+        path: children/{pid}
+        method: get

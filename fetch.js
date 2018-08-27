@@ -2,20 +2,32 @@ import * as imageboardDB from "./helpers/imageboarddb";
 import { successOrNull } from "./helpers/response";
 
 export async function main(event, context, callback) {
-  let limit = 250;
+  let limit = 50;
 
   const pid = event.pathParameters.pid;
   const initial = await imageboardDB.getMain(pid, context, callback);
 
-  const map = {};
-  const traverse = postResult => {
+  let retList = [];
+  const traverse = async children => {
     if (limit === 0) return;
-    const children = postResult.children;
-    map[postResult.pid] = postResult;
-    limit--;
-    children.forEach(child => {traverse(child)})
-  };
+    const keys = children.map(child => {
+      return {pid: child}
+    });
+    const results = await imageboardDB.batchGetMain(keys);
+    retList = retList.concat(results.Responses["imageboard-main"]);
 
-  traverse(initial);
-  callback(null, successOrNull(map));
+    const allChildren = results.Responses["imageboard-main"].reduce((a, post) => {
+      return a.concat(post.children)
+    }, []);
+    limit-= allChildren.length;
+    if (allChildren.length > 0) {
+      await traverse(allChildren)
+    }
+  };
+  await traverse(initial.children);
+  const retMap = retList.reduce((map, item) => {
+    map[item.pid] = item;
+    return map;
+  }, {});
+  callback(null, successOrNull(retMap));
 }
